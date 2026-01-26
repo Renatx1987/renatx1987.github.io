@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персональный трекер — Ренат Арсланов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFDFB;
+            --bg-secondary: #F9F7F5;
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1715;
+            --text-secondary: #5C5652;
+            --text-muted: #9C9590;
+            --accent: #D97706;
+            --accent-light: #FEF3E2;
+            --accent-hover: #B45309;
+            --border: #E8E4E0;
+            --border-dark: #D4CFC9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .header-cta {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--border-dark);
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .header-cta:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+            max-width: 720px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 36px;
+            max-width: 560px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .hero-cta:hover {
+            background: var(--text-secondary);
+        }
+
+        .hero-cta svg {
+            transition: transform 0.15s ease;
+        }
+
+        .hero-cta:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            margin-bottom: 48px;
+            max-width: 600px;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: clamp(1.6rem, 3vw, 2rem);
+            font-weight: 400;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        /* Problems Section */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .problem-card {
+            padding: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: border-color 0.15s ease;
+        }
+
+        .problem-card:hover {
+            border-color: var(--border-dark);
+        }
+
+        .problem-card h3 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .problem-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* How it works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+        }
+
+        .step {
+            position: relative;
+        }
+
+        .step-number {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--border);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .step h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            align-self: flex-start;
+        }
+
+        .service-card h3 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .service-card > p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .service-details {
+            list-style: none;
+            margin-bottom: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .service-details li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .service-details li svg {
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .service-price {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .service-price span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        .about-photo {
+            aspect-ratio: 1;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+
+        .about-text h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .about-credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 28px;
+        }
+
+        .credential {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            padding: 8px 14px;
+            border-radius: 6px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .cta-section > .container > p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 32px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 16px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--text-secondary);
+        }
+
+        .cta-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 14px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Ренат Арсланов</a>
+                <a href="#contact" class="header-cta">Записаться</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" style="border: none;">
+        <div class="container">
+            <div class="hero-label">Персональный трекер</div>
+            <h1>Помогаю довести до результата то, что застряло</h1>
+            <p class="hero-subtitle">Карьерный переход, личный проект, порядок в делах — вместе разберём, спланируем и сделаем. Системно и без воды.</p>
+            <a href="#contact" class="hero-cta">
+                Бесплатная диагностика
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <section class="problems">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Знакомо?</div>
+                <h2>С чем приходят ко мне</h2>
+            </div>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <h3>«Застрял и не двигаюсь»</h3>
+                    <p>Есть ощущение, что иду не туда. Работа не радует, но что делать дальше — непонятно. Хочется перемен, но страшно.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>«Хаос в голове и делах»</h3>
+                    <p>Задач много, всё срочное и важное. Чувствую себя белкой в колесе. Дела делаются, но результата нет.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>«Не могу довести до конца»</h3>
+                    <p>Есть проект мечты — книга, курс, бизнес-идея. Начинаю и бросаю. Уже несколько лет «вот-вот начну».</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Подход</div>
+                <h2>Как это работает</h2>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <h3>Разбираемся</h3>
+                    <p>На диагностике понимаем, что именно застряло и почему. Без этого любые советы — в молоко.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <h3>Планируем</h3>
+                    <p>Превращаем «хочу» в конкретные шаги с дедлайнами. Декомпозиция — моя суперсила после 15 лет в управлении проектами.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <h3>Делаем</h3>
+                    <p>Регулярные встречи, отчётность, поддержка. Я — тот, кто не даст слиться и поможет пройти сложные участки.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Форматы</div>
+                <h2>Как можем поработать</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-badge">Старт</span>
+                    <h3>Разовая консультация</h3>
+                    <p>Разберём конкретную ситуацию, наметим план действий. Подходит, если нужен взгляд со стороны.</p>
+                    <ul class="service-details">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            60 минут работы
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Запись встречи
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Краткое резюме с шагами
+                        </li>
+                    </ul>
+                    <div class="service-price">3 000 ₽</div>
+                </div>
+                <div class="service-card">
+                    <span class="service-badge">Оптимум</span>
+                    <h3>Пакет сессий</h3>
+                    <p>Глубокая работа над задачей: карьерный переход, запуск проекта, выстраивание системы.</p>
+                    <ul class="service-details">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            4–8 встреч по 60 минут
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Поддержка в чате между встречами
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Персональный план действий
+                        </li>
+                    </ul>
+                    <div class="service-price">По запросу</div>
+                </div>
+                <div class="service-card">
+                    <span class="service-badge">Максимум</span>
+                    <h3>Трекинг 3 месяца</h3>
+                    <p>Полноценное сопровождение до результата. Для тех, кому нужен надёжный партнёр на дистанции.</p>
+                    <ul class="service-details">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Еженедельные встречи
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Ежедневная поддержка в чате
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Система трекинга прогресса
+                        </li>
+                    </ul>
+                    <div class="service-price">По запросу</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-photo">
+                    [ Фото ]
+                </div>
+                <div class="about-text">
+                    <div class="section-label">Обо мне</div>
+                    <h2>Ренат Арсланов</h2>
+                    <p>Более 15 лет в управлении проектами и командами в PwC, Яндексе, МТС, Т-Банке. Строил PMO, внедрял OKR, наводил порядок в хаосе.</p>
+                    <p>Сейчас применяю этот опыт к тому, что действительно важно — помогаю людям достигать их личных целей. Системно, практично, без мотивационной воды.</p>
+                    <p>Параллельно сам прохожу тот же путь — строю несколько источников дохода, ищу баланс между ролями в семье и в работе, между амбициями и реальностью. Знаю, каково это — застрять. И знаю, как выбраться.</p>
+                    <div class="about-credentials">
+                        <span class="credential">PwC</span>
+                        <span class="credential">Яндекс</span>
+                        <span class="credential">МТС</span>
+                        <span class="credential">Т-Банк</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Готов двинуться с места?</h2>
+            <p>Начнём с бесплатной 15-минутной диагностики. Поймём, чем могу помочь — и стоит ли вообще работать вместе.</p>
+            <a href="https://t.me/YOUR_TELEGRAM" class="cta-button">
+                Записаться на диагностику
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <p class="cta-note">15 минут · Бесплатно · Без обязательств</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-copy">© 2025 Ренат Арсланов</div>
+                <div class="footer-links">
+                    <a href="https://t.me/renat_ars">Telegram</a>
+                    <a href="https://www.linkedin.com/in/renat-arsx/">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
