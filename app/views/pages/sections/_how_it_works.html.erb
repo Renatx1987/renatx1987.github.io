@@ -1,0 +1,17 @@
+<section class="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Подход</div>
+      <h2>Как это работает</h2>
+    </div>
+    <div class="steps">
+      <% steps.each do |step| %>
+        <div class="step">
+          <div class="step-number"><%= step[:number] %></div>
+          <h3><%= step[:title] %></h3>
+          <p><%= step[:description] %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
