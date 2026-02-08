@@ -314,6 +314,67 @@ section {
   color: var(--text-muted);
 }
 
+/* Business Section */
+.business-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+@media (max-width: 768px) {
+  .business-card {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 28px;
+  }
+}
+
+.business-column h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.business-column ul {
+  list-style: none;
+}
+
+.business-column ul li {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.business-column ul li svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.business-column.problems ul li svg {
+  color: var(--text-muted);
+}
+
+.business-column.solutions ul li svg {
+  color: var(--accent);
+}
+
+.business-cta {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.business-cta .cta-button {
+  display: inline-flex;
+}
+
 /* About */
 .about-content {
   display: grid;
