@@ -82,8 +82,11 @@ header {
 /* Hero Section */
 .hero {
   padding: 100px 0 80px;
-  max-width: 720px;
   border: none !important;
+}
+
+.hero .container {
+  max-width: 720px;
 }
 
 .hero-label {
